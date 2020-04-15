@@ -2,7 +2,7 @@ class Content
   include Mongoid::Document
   include Mongo::Voteable
 
-  ES_INDEX_NAME = 'content'
+  ES_INDEX_NAME = CommentService.config['es_prefix'] + 'content'
 
 
   field :visible, type: Boolean, default: true
