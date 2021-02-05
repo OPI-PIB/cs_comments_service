@@ -2,9 +2,12 @@ class Content
   include Mongoid::Document
   include Mongo::Voteable
 
-  ES_INDEX_NAME = CommentService.config['es_prefix'] + 'content'
-
-
+  if CommentService.config['es_prefix'].is_a?(String)
+    ES_INDEX_NAME = CommentService.config['es_prefix'] + 'content'
+  else
+    ES_INDEX_NAME = CommentService.config['es_prefix']
+  end
+  
   field :visible, type: Boolean, default: true
   field :abuse_flaggers, type: Array, default: []
   field :historical_abuse_flaggers, type: Array, default: [] #preserve abuse flaggers after a moderator unflags
